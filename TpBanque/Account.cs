@@ -6,18 +6,32 @@ using System.Threading.Tasks;
 
 namespace TpBanque
 {
-    internal class Account
+    internal abstract class Account
     {
+        /// <summary>
+        /// Nombre de compte créé
+        /// </summary>
         private static int NumberAccount = 0;
-
-        public int AccountNumber { get; private set; }
-
-        public Customer Owner { get; private set; }
-
-        private DateTime CreationDate { get; set; }
-
-        public double Balance { get; private set; }
-
+        /// <summary>
+        /// numero du compte
+        /// </summary>
+        public int AccountNumber { get; protected set; }
+        /// <summary>
+        /// Propriétaire
+        /// </summary>
+        public Customer Owner { get; protected set; }
+        /// <summary>
+        /// Date de creation
+        /// </summary>
+        public DateTime CreationDate { get; protected set; }
+        /// <summary>
+        /// Solde
+        /// </summary>
+        public double Balance { get; protected set; }
+        /// <summary>
+        /// Constructeur
+        /// </summary>
+        /// <param name="owner"></param>
         public Account(Customer owner)
         {
             NumberAccount += 1;
@@ -26,7 +40,11 @@ namespace TpBanque
             owner.AddAccount(this);
             AccountNumber = NumberAccount;
         }
-
+        /// <summary>
+        /// Constructeur avec solde
+        /// </summary>
+        /// <param name="owner"></param>
+        /// <param name="balance"></param>
         public Account(Customer owner, double balance)
         {
             NumberAccount += 1;
@@ -36,25 +54,35 @@ namespace TpBanque
             owner.AddAccount(this);
             AccountNumber = NumberAccount;
         }
-
-        public void Credit(int credit)
+        /// <summary>
+        /// Methode pour credité
+        /// </summary>
+        /// <param name="credit"></param>
+        /// <returns></returns>
+        public virtual double Credit(int credit)
         {
-            Balance = Balance + credit;
+            return Balance = Balance + credit;
         }
-
-        public void Debit(int debit)
+        /// <summary>
+        /// Methode pour debité
+        /// </summary>
+        /// <param name="debit"></param>
+        /// <returns></returns>
+        public virtual double Debit(int debit)
         {
-            Balance = Balance - debit;
+            return Balance = Balance - debit;
         }
-
-        public void Print()
+        /// <summary>
+        /// Methode pour afficher override de la classe Object
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
         {
-            Console.WriteLine(@$"
+            return@$"
 Le numero du compte est {AccountNumber} fait le {CreationDate.ToString("dd/MM/yyyy")}
 Le propriétaire est {Owner.Name} {Owner.FirstName}
-Le solde est de {Balance}");
+Le solde est de {Balance} euros
+---------------------";
         }
-
-
     }
 }
