@@ -47,7 +47,7 @@ namespace TpBanque
             return Balance * Interest;
         }
         /// <summary>
-        /// Methode pour ajouter les intérêt
+        /// Methode pour ajouter les intérêts
         /// </summary>
         /// <returns></returns>
         public double AddInterest()
